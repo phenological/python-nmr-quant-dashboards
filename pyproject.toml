@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nmr-quant-dashboards"
-version = "0.1.0"
+version = "0.2.0"
 description = "Matplotlib dashboards for NMR fit inspection and QA"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -14,8 +14,8 @@ keywords = ["nmr", "quantification", "matplotlib", "qa", "dashboard"]
 dependencies = [
     "numpy>=1.24",
     "matplotlib>=3.7",
-    # Deliberately depends on nothing else: panels take pre-computed arrays,
-    # so there is no coupling to nmr-quant or a data loader.
+    "scipy>=1.10",  # gaussian_kde for fit_quality_contours
+    # No coupling to nmr-quant or a data loader: panels take pre-computed arrays.
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -26,6 +26,7 @@ dev = [
     "pytest>=8.0",
     "pytest-cov>=4.1",
     "ruff>=0.1",
+    "pandas>=2.0",  # tests build dataframes for fit_quality_contours
 ]
 
 [tool.pytest.ini_options]

@@ -7,11 +7,17 @@ import math
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 
-from .panels import FitPanel, draw_fit_panel, draw_overview, draw_residual
+from .panels import (
+    FitPanel,
+    draw_badges,
+    draw_fit_panel,
+    draw_overview,
+    draw_residual,
+)
 
 
 def dashboard_full(panels: list[FitPanel], *, overview=None, title="",
-                   figsize=None):
+                   figsize=None, show_badges=False):
     """A full dashboard: optional overview row, then per-signal fit + residual.
 
     ``overview`` is ``(full_x, full_y, rois[, folder_label])`` or None; see
@@ -38,7 +44,10 @@ def dashboard_full(panels: list[FitPanel], *, overview=None, title="",
         row0 = 1
 
     for i, panel in enumerate(panels):
-        draw_fit_panel(fig.add_subplot(gs[row0 + 2 * i, 0]), panel)
+        ax_fit = fig.add_subplot(gs[row0 + 2 * i, 0])
+        draw_fit_panel(ax_fit, panel)
+        if show_badges and panel.metrics:
+            draw_badges(ax_fit, panel.metrics, failed=panel.failed)
         draw_residual(fig.add_subplot(gs[row0 + 2 * i + 1, 0]), panel)
 
     if title:

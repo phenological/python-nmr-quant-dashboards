@@ -12,10 +12,12 @@ NEUTRAL = "#3498db"
 GREY = "#95a5a6"
 
 DATA = "#222222"
-MODEL = "#e67e22"
-COMPONENT = "#3498db"
-BASELINE = "#7f8c8d"
-RESIDUAL = "#7f8c8d"
+MODEL = "#4682b4"        # steelblue: fit fill / component lines
+COMPONENT = "#4682b4"
+SATELLITE = "#2e8b57"    # seagreen: satellite lines
+BASELINE = "#ff8c00"     # darkorange: baseline
+RESIDUAL = "#222222"
+MEDIAN = "#4682b4"
 
 
 def quality_color(quality: bool | None) -> str:

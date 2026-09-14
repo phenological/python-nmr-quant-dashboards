@@ -1,28 +1,40 @@
 """nmr-quant-dashboards — matplotlib dashboards for NMR fit inspection and QA.
 
-Panels take pre-computed arrays (:class:`FitPanel`), so this package depends on
-nothing but numpy and matplotlib. The caller supplies the fitted model curve
-(e.g. via ``nmr_quant.QuantResults.model_curve``); this package only draws.
+Panels take pre-computed arrays (:class:`FitPanel`), so the drawing primitives
+depend only on numpy and matplotlib; :func:`fit_quality_contours` additionally
+uses scipy. The caller supplies the fitted model curve (e.g. via
+``nmr_quant.QuantResults.model_curve``); this package only draws.
 
-Public API:
-    FitPanel                    the plain-array input for one signal's fit
-    draw_fit_panel              data + model (+ components/baseline) into an Axes
-    draw_residual               residual strip into an Axes
-    draw_overview               full spectrum with ROIs shaded by quality
-    dashboard_full              overview + per-signal fit/residual figure
-    dashboard_compact           compact grid of fit panels
+Building blocks (compose your own layout):
+    FitPanel, draw_fit_panel, draw_residual, draw_badges, draw_median,
+    draw_overview
+Ready-made layouts:
+    dashboard_full, dashboard_compact
+Fit-quality space:
+    fit_quality_contours
 """
 
 from __future__ import annotations
 
+from .contours import fit_quality_contours
 from .layouts import dashboard_compact, dashboard_full
-from .panels import FitPanel, draw_fit_panel, draw_overview, draw_residual
+from .panels import (
+    FitPanel,
+    draw_badges,
+    draw_fit_panel,
+    draw_median,
+    draw_overview,
+    draw_residual,
+)
 
 __all__ = [
     "FitPanel",
     "dashboard_compact",
     "dashboard_full",
+    "draw_badges",
     "draw_fit_panel",
+    "draw_median",
     "draw_overview",
     "draw_residual",
+    "fit_quality_contours",
 ]
